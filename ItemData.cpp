@@ -32,39 +32,40 @@ void ItemData(LinkedListItem& IL, string FN) {
 					sm.erase(0, pos + d.length());
 					tmp++;
 				}
+
 				Item* i;
 				temporary_list[tmp] = sm;
 				// begin the validate for the this case
-				// validate the id first
-
+				
+				//Validate the Items'ID Input
 				if (!validateItemID(temporary_list[0], "readFile")) {
-					cout << "WARNING: Item may not have appropriate ID at line " << lp
-						<< "\nThe item will not be added to the record. Please go and check the database again." << endl;
+					cout << "WARNING: Item contains INCORRECT ID " << lp << endl;
+					cout << "The item will not be added to the record. Please go and check the database again." << endl;
 				}
 
 				else if (!validateTitle(temporary_list[1], "readFile")) {
-					cout << "WARNING: Item may not have appropriate title at line " << lp
-						<< "\nThe item will not be added to the record. Please go and check the database again." << endl;
+					cout << "WARNING: Item contains INCORRECT Title " << lp << endl;
+					cout << "The item will not be added to the record. Please go and check the database again." << endl;
 				}
 
 				else if (!validateRentalType(temporary_list[2], "readFile")) {
-					cout << "WARNING: Item may not have appropriate type at line " << lp
-						<< "\nThe item will not be added to the record. Please go and check the database again." << endl;
+					cout << "WARNING: Item contains INCORRECT Rental Type " << lp << endl;
+					cout << "The item will not be added to the record. Please go and check the database again." << endl;
 				}
 
 				else if (!validateLoanType(temporary_list[3], "readFile")) {
-					cout << "WARNING: Item may not have appropriate loan period at line " << lp
-						<< "\nThe item will not be added to the record. Please go and check the database again." << endl;
+					cout << "WARNING: Item contains INCORRECT Loan Type " << lp << endl;
+					cout << "The item will not be added to the record. Please go and check the database again." << endl;
 				}
 
 				else if (!validateNumberOfCopies(temporary_list[4], "readFile")) {
-					cout << "WARNING: Item may not have appropriate number of copies at line " << lp
-						<< "\nThe item will not be added to the record. Please go and check the database again." << endl;
+					cout << "WARNING: Item contains INCORRECT Number Of Copies " << lp << endl;
+					cout << "The item will not be added to the record. Please go and check the database again." << endl;
 				}
 
 				else if (!validateRentalFee(temporary_list[5], "readFile")) {
-					cout << "WARNING: Item may not have appropriate rental fee at line " << lp
-						<< "\nThe item will not be added to the record. Please go and check the database again." << endl;
+					cout << "WARNING: Item contains INCORRECT Rental Fee " << lp << endl;
+					cout << "The item will not be added to the record. Please go and check the database again." << endl;
 				}
 
 				else {
@@ -80,8 +81,8 @@ void ItemData(LinkedListItem& IL, string FN) {
 
 					else if (temporary_list[2] == "DVD") {
 						if (!validateGenre(temporary_list[6], "readFile")) {
-							cout << "WARNING: The item may not have appropriate genres at line " << lp
-								<< "\nThe item will not be added to the record. Please go and check the database again." << endl;
+							cout << "WARNING: Item contains INCORRECT Genre " << lp << endl;
+							cout << "The item will not be added to the record. Please go and check the database again." << endl;
 						}
 
 						else {
@@ -98,8 +99,8 @@ void ItemData(LinkedListItem& IL, string FN) {
 
 					else {
 						if (!validateGenre(temporary_list[6], "readFile")) {
-							cout << "WARNING: The item may not have appropriate genres at line " << lp
-								<< "\nThe item will not be added to the record. Please go and check the database again." << endl;
+							cout << "WARNING: Item contains INCORRECT Genre " << lp << endl;
+							cout << "The item will not be added to the record. Please go and check the database again." << endl;
 						}
 
 						else {
@@ -116,8 +117,8 @@ void ItemData(LinkedListItem& IL, string FN) {
 				}
 			}
 			else {
-				cout << "WARNING: The item may not have appropriate ID at line " << lp
-					<< "\nThe item will not be added to the record. Please go and check the database again." << endl;
+				cout << "WARNING: Item contains INCORRECT ID " << lp << endl;
+				cout << "The item will not be added to the record. Please go and check the database again." << endl;
 			}
 		}
 		//Close file

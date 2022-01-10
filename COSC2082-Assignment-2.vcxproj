@@ -117,7 +117,7 @@
     <ClCompile Include="LinkedListCustomer.cpp" />
     <ClCompile Include="LinkedListItem.cpp" />
     <ClCompile Include="LinkedListRental.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MainProgram.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="RentalListNode.cpp" />
     <ClCompile Include="InputValidataion.cpp" />
