@@ -53,7 +53,7 @@ public:
     LinkedListRental getRentalList2();
 
 
-  // Polymorphism functions
+  // Base method
     virtual void details() = 0;
 
     virtual void showRentalList() = 0;
