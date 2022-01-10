@@ -16,27 +16,27 @@ void CustomerData(LinkedListCustomer& CL, string FN) {
 	ifstream myfile(FN);
 	if (myfile)
 	{
-		// Initialize pointer to a customer
+		// Customer pointer
 		Customer* obj = NULL;
 		LinkedListRental* l;
 		int temp3 = 0, lp = 0, cn;
-		// Track the line number
-		 // Check if the number of rental is matching with list of rentals
+		// Line number tracking
+		 // Comparision between number of rental and list of rental
 
-		while (getline(myfile, a))  // same as: while (getline( myfile, line ).good())
+		while (getline(myfile, a))  // Itegrity checking loop (while this body is .good())
 		{
 			lp++;
 			if (a[0] == 'C') {
 				cn = 0;
-				// Customer infomation in txt file will be store in the string array
+				// Store customer info in an array
 				string lt[6], t, d = ",";
-				// This attribute will help to find the comma
+				// Find comma
 				size_t position = 0;
 				int temporary = 0;
-				// If comma still exist, continue looping
+				// Loop while comma exists
 				while ((position = a.find(d)) != string::npos) {
 					t = a.substr(0, position);
-					if (t == "") // Check if there is any missing information
+					if (t == "") // Check for missing info
 						lt[temporary] = "N/A";
 					else
 						lt[temporary] = t;
@@ -45,7 +45,7 @@ void CustomerData(LinkedListCustomer& CL, string FN) {
 				}
 				lt[temporary] = a;
 
-				// Validate cusomer information format in each column
+				// Validate customer info
 
 				do {
 					if (!validateCustomerID(lt[0], "readFile")) {
@@ -78,9 +78,8 @@ void CustomerData(LinkedListCustomer& CL, string FN) {
 						cout << "Error: This customer with the ID: " << lt[0] << " don't have the correct value in 'Type' at line " << lp << "\nThe customer will not be added to the record.Recheck the database file." << endl;
 						break;
 					}
-					// Finish validating customer information format
-
-					// If passing all the validation, a customer object will be created and add to the customer list in the program
+				
+					// Create customer object and add to customer list
 					if (lt[5] == "Guest") {
 						obj = new GuestMember(lt[0], lt[1], lt[2], lt[3], stoi(lt[4]));
 					}
@@ -90,8 +89,8 @@ void CustomerData(LinkedListCustomer& CL, string FN) {
 					else {
 						obj = new VipMember(lt[0], lt[1], lt[2], lt[3], stoi(lt[4]));
 					}
-					l = obj->getRentalList1(); // Get list of the current customer
-					CL.addCustomer(obj); // Add customer to the customer list in program
+					l = obj->getRentalList1(); // Get list of existing customer
+					CL.addCustomer(obj); // Add customer
 					break;
 				} while (true);
 			}
@@ -102,14 +101,13 @@ void CustomerData(LinkedListCustomer& CL, string FN) {
 						l->addItem(a);
 						cn++;
 					}
-					// If rental number not match (number of rental is lower than the list of rentals)
+					// Case of fail rental
 					else {
 						cout << "Error: Customer with ID " << obj->getId() << " have matching number different from the list of rentals." << endl;
 						cout << "WARNING: Only " << obj->getNumberOfRental() << " items were recorded during running program " << "for customer with the Id " << obj->getId() << endl;
 						cout << "Check the database files please" << endl;
 					}
 				}
-				// Only add the item to customer'rental list up to his/her number of rental.
 
 			}
 
