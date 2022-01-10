@@ -6,7 +6,7 @@
 
 using namespace std;
 
-Customer::Customer() { //Assume that this is a blank customer
+Customer::Customer() { //Initialize a blank customer field
 	this->Id = "";
 	this->Name = "";
 	this->Address = "";
@@ -126,7 +126,7 @@ int Customer::typeCustomer() {
 	return 0;
 }
 
-//Show rental list and return Customer's type
+//Display rental list and customer's type
 void GuestMember::showRentalList() {
 	this->Customer::showRentalList();
 }
@@ -150,7 +150,7 @@ int VipMember::typeCustomer() {
 
 //--------------------------------------- Guest Member ---------------------------------------
 
-// Guest Member's Constructors
+//Constructors
 GuestMember::GuestMember() {
 	this->setType("Guest");
 	this->setNumberOfReturnedItems(0);
@@ -162,9 +162,9 @@ GuestMember::GuestMember(string Id, string Name, string Address, string PhNo, in
 	this->setNumberOfReturnedItems(0);
 }
 
-//Guest Member's functions
+//Functions
 
-//Renting Function for Guest Member
+//Rental feature for Guest Member
 void GuestMember::rentItem(const string Item_Name, LinkedListItem& item_list) {
 	//Check if this customer reached the renting limitation (2 items)
 	if (this->getNumberOfRental() < GUEST_RENT_LIMIT) {
@@ -184,13 +184,13 @@ void GuestMember::rentItem(const string Item_Name, LinkedListItem& item_list) {
 	}
 }
 
-//Returning Function for Guest Member
+//Returning Feature for Guest Member
 void GuestMember::returnItem(const string Item_Name) {
 	cout << "SUCCESS!!!: Guest customer: " << this->getName() << " returned item successfully!" << endl;
 	this->Customer::returnItem(Item_Name);
 }
 
-//Printing details Funtion for Guest Member
+//Display for Guest Member
 void GuestMember::details() {
 	cout << "\nCustomer ID: " << this->getId() <<
 		"\nType: Guest" <<
@@ -204,7 +204,7 @@ void GuestMember::details() {
 
 //--------------------------------------- Regular Member ---------------------------------------
 
-// Regular Member's Constructors
+//Constructors
 RegularMember::RegularMember() {
 	this->setType("Regular");
 	this->setNumberOfReturnedItems(0);
@@ -215,21 +215,21 @@ RegularMember::RegularMember(string Id, string Name, string Address, string PhNo
 	this->setNumberOfReturnedItems(0);
 }
 
-//Regular Member's Functions
+//Functions
 
-//Renting Function for Regular member
+//Rental Feature for Regular member
 void RegularMember::rentItem(const string Item_Name, LinkedListItem& item_list) {
 	this->Customer::rentItem(Item_Name, item_list);
 	cout << "Regular customer " << this->getName() << " rented item successfully!" << endl;
 }
 
-//Returning Funtion for Regular Member
+//Returning Feature for Regular Member
 void RegularMember::returnItem(const string Item_Name) {
 	cout << "Regular customer " << this->getName() << " returned item successfully!" << endl;
 	this->Customer::returnItem(Item_Name);
 }
 
-//Printing details function for Regular Member
+//Display for Regular Member
 void RegularMember::details() {
 	cout << "Customer ID: " << this->getId() <<
 		"\nType: Regular" <<
@@ -242,7 +242,7 @@ void RegularMember::details() {
 
 //--------------------------------------- VIP Member ---------------------------------------
 
-//VIP Member's Constructors
+//Constructors
 VipMember::VipMember() {
 	this->reward = 0;
 	this->freeRentItem = 0;
@@ -257,12 +257,12 @@ VipMember::VipMember(string Id, string Name, string Address, string PhNo, int nu
 	this->setNumberOfReturnedItems(0);
 }
 
-//VIP Member's Functions
+//Functions
 
-//Renting Function for VIP Member
+//Rental Feature for VIP Member
 void VipMember::rentItem(const string Item_Name, LinkedListItem& item_list) {
 
-	//Case 1:  If they meet the exchange condition, the will have 1 free rent time.
+	//Case 1:  Free item for 100 points
 	if (this->reward >= VIP_EXCHANGE_CONDITION) {
 		cout << "CONGRATULATIONS!!!: " << this->getName() << ", you have 1 free rent in your account!" << endl;
 		this->freeRentItem++;
@@ -273,7 +273,7 @@ void VipMember::rentItem(const string Item_Name, LinkedListItem& item_list) {
 		cout << endl;
 	}
 	
-	//Case 2: If they do NOT have enough exchange point, rent an item will increase their point
+	//Case 2: <100 points -> Increase point
 	else {
 		this->Customer::rentItem(Item_Name, item_list);
 		this->reward += VIP_POINTS;
@@ -291,7 +291,7 @@ void VipMember::rentItem(const string Item_Name, LinkedListItem& item_list) {
 	}
 }
 
-//Returning function for VIP Member
+//Rental Feature for VIP Member
 void VipMember::returnItem(const string Item_Name) {
 	this->Customer::returnItem(Item_Name);
 	cout << "CONGRATULATIONS!!!: VIP customer " << this->getName() << " successfully returned an item!" << endl;
@@ -299,12 +299,12 @@ void VipMember::returnItem(const string Item_Name) {
 
 }
 
-//Checking Reward Point function for VIP Member
+//Reward points
 void VipMember::checkRewardPoints() {
 	cout << "Your total reward points are: " << this->reward << endl;
 }
 
-//Printing details Function for VIP Member
+//Display for VIP Member
 void VipMember::details() {
 	cout << "Customer ID: " << this->getId() <<
 		"\nType: VIP" <<
