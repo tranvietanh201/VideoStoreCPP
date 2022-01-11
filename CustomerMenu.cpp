@@ -246,20 +246,20 @@ void customerMenu(LinkedListItem&i_list, LinkedListCustomer&cust_list, string i_
 
 		}
 
-		// Search customer menu
+		// Search customer 
 		else if (choice == "4") {
-			// Use while loop to let the user exit the option by their choice
+			// User decide to leave the menu through a while loop
 			do {
-				cout << "*------------------- Search a customer -------------------*" << endl;
+				cout << "*                    Search a customer                    *" << endl;
 				cout << "|1. Search a Customer By ID                               |" << endl;
 				cout << "|2. Search a Customer By name                             |" << endl;
 				cout << "|3. Back to Customer Menu                                 |" << endl;
-				cout << "*---------------------------------------------------------*" << endl;
+				cout << "*                                                         *" << endl;
 				cout << "Please Enter an option: ";
 				cin >> choice;
 				if (choice == "1") {
 					do{
-						cout << "Please Enter customer's ID to search: ";
+						cout << "Enter customer's ID: ";
 						cin >> choice;
 						if (validateCustomerID(choice, "choice"))
 							break;
@@ -271,23 +271,23 @@ void customerMenu(LinkedListItem&i_list, LinkedListCustomer&cust_list, string i_
 						obj->data->details();
 					}
 					else {
-						cout << "WARNING: Cannot find the customer with specified ID." << endl;
+						cout << "Customer ID not found" << endl;
 					}
 				}
 				else if (choice == "2") {
 					cin.ignore();
 					do {
-						cout << "Please Enter customer's name to search: ";
+						cout << "Enter customer's name: ";
 						getline(cin, choice);
 						if (validateCustomerName(choice, "choice"))
 							break;
 					}while (true);
-					// Find customer through the list here
+					// Parse customer list
 					LinkedListCustomer list_found = cust_list.searchCustomerByName(choice);
 					if (list_found.getHead() != NULL)
 						list_found.printAllCustomer();
 					else
-						cout << "WARNING: Cannot find the customer with specified name." << endl;
+						cout << "Customer name not found" << endl;
 				}
 				else if (choice == "3") {
 					break;
@@ -295,16 +295,16 @@ void customerMenu(LinkedListItem&i_list, LinkedListCustomer&cust_list, string i_
 				else {
 					cout << "ERROR: Invalid choice." << endl;
 				}
-				cout << "WARNING: Continue to search? (y/n): ";
+				cout << "Please confirm search information (Type y/n): ";
 				cin >> choice;
 				if (choice == "y") {
-					cout << endl; // Add space
-					// Continue to update
+					cout << endl;
+					// update
 				}
 				else {
 					cout << "*---------------------------------------------------------*" << endl;
-					cout << endl; // Add space
-					// Break out the update loop
+					cout << endl; //
+					// Exit the loop
 					break;
 				}
 			}while (true);
@@ -317,14 +317,13 @@ void customerMenu(LinkedListItem&i_list, LinkedListCustomer&cust_list, string i_
 			break;
 		}
 
-		// Close the program
+		// Close program
 		else if (choice == "Exit") {
 			closeProgram(i_list, cust_list, i_file_name, cust_file_name);
 		}
 		else {
-			cout << "ERROR: Invalid choice. Please try again." << endl;
+			cout << "Invalid choice. Please try again." << endl;
 		}
-		// Show customer menu again after complete any option
 	}while (true);
 
 }
@@ -332,17 +331,17 @@ void customerMenu(LinkedListItem&i_list, LinkedListCustomer&cust_list, string i_
 Customer *customerCreateMenu(LinkedListCustomer&cust_list) {
 	string *inp_array = new string[5];
 
-	// While loop is implemented to validate user's choice before moving to next field.
+	// Validate customer
 	do {
 		cout << "1. Enter customer's ID(Cxxx): ";
 		cin >> inp_array[0];
 
-		// Check format
+		// Format validation
 		if (validateCustomerID(inp_array[0], "choice")) {
-			// Check if ID is existed in database
+			// ID validation
 			CustomerNode *duplicateID = cust_list.searchCustomerByID(inp_array[0]);
 			if (duplicateID != NULL) {
-				cout << "WARNING: Customer's ID has already existed. Please enter again." << endl;
+				cout << "Customer's ID collision. Please type another ID" << endl;
 			}
 			else {
 				break;
@@ -352,33 +351,31 @@ Customer *customerCreateMenu(LinkedListCustomer&cust_list) {
 	}while (true);
 
 	cin.ignore();
-	// While loop is implemented to validate user's choice before moving to next field.
+	// Validate user's choice 
 	 do{
 		cout << "2. Enter customer's name: ";
-		// ignore the newline character
 		getline(cin, inp_array[1]);
 		if (validateCustomerName(inp_array[1],"choice"))
 			break;
 	}while (true);
-	// While loop is implemented to validate user's choice before moving to next field.
+	// Validate user's choice
 	do{
 		cout << "3. Enter customer's address: ";
-		// ignore the newline character
 		getline(cin, inp_array[2]);
 		if (validateCustomerAddress(inp_array[2],"choice"))
 			break;
 	}while (true);
 
-	// While loop is implemented to validate user's choice before moving to next field.
+	// Validate user's choice
 	do{
 		cout << "4. Enter customer's phone number (10 digits): ";
-		// Implemented validation. Still need further testing
+		// Validation
 		cin >> inp_array[3];
 		if (validateCustomerPhoneNumber(inp_array[3],"choice"))
 			break;
 	}while (true);
 
-	// While loop is implemented to validate user's choice before moving to next field.
+	// Validate user's choice
 	do {
 		cout << "5. Enter customer's type (Guest, Regular, VIP): ";
 		cin >> inp_array[4];
@@ -388,7 +385,7 @@ Customer *customerCreateMenu(LinkedListCustomer&cust_list) {
 
 	Customer *obj;
 
-	// With each case of customer type will create each correctly object class.
+	// Create customer object with each customer type.
 	if (inp_array[4] == "Guest") {
 		obj= new GuestMember(inp_array[0], inp_array[1], inp_array[2], inp_array[3], 0);
 	}
@@ -398,7 +395,7 @@ Customer *customerCreateMenu(LinkedListCustomer&cust_list) {
 	else {
 		obj = new VipMember(inp_array[0], inp_array[1], inp_array[2], inp_array[3], 0);
 	}
-	// Free up space in heap
+	// Free up space
 	delete[] inp_array;
 	return obj;
 }
@@ -407,16 +404,16 @@ void customerUpdateMenu(CustomerNode *custm) {
 	string choice;
 
 	do {
-		cout << "*---------------------- Update Customer ----------------------*" << endl;
+		cout << "*                      Update Customer                       *" << endl;
 		custm->data->details();
-		cout << "Please Select an option: ";
+		cout << "Please choose an option: ";
 		cin >> choice;
 
 		if (choice == "1") {
 			cin.ignore();
 			do{
 				cout << "Enter customer's name: ";
-				// Name can contains spaces so need to use getline in this case
+				// getline since name contains spaces
 				getline(cin, choice);
 				if (validateCustomerName(choice, "choice")) {
 					custm->data->setName(choice);
@@ -428,7 +425,7 @@ void customerUpdateMenu(CustomerNode *custm) {
 			cin.ignore();
 			do {
 				cout << "Enter customer's address: ";
-				// Address can contains spaces so need to use getline in this case
+				// getline since address contains spaces
 				getline(cin, choice);
 				if (validateCustomerAddress(choice, "choice")) {
 					custm->data->setAddress(choice);
